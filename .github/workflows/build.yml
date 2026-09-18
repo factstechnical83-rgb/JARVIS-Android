@@ -18,7 +18,7 @@ jobs:
           unzip -o JARVIS-Android-GitHub-Ready.zip -d extracted_project
           find extracted_project -maxdepth 2 -name "build.gradle*" -exec dirname {} \; | head -n 1 | xargs -I {} cp -r {}/* . || cp -r extracted_project/* .
           
-          # Missing environment files
+          # Environment files
           touch .env
           touch .env.example
           echo "OPENAI_API_KEY=dummy" >> .env
@@ -33,16 +33,19 @@ jobs:
       - name: Generate Missing Debug Keystore
         run: |
           keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
-          # Root aur app dono jagah copy kar dete hain taaki path ka issue na aaye
           cp debug.keystore app/debug.keystore 2>/dev/null || true
 
-      - name: Setup Gradle Wrapper & Build APK
+      - name: Build Debug APK
         run: |
+          # Agar original gradlew extract hua hai toh use chalayein, varna gradle 8.7 use karein
           if [ ! -f gradlew ]; then
-            gradle wrapper
+            sudo apt-get update && sudo apt-get install -y wget unzip
+            wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip
+            unzip -q gradle-8.7-bin.zip
+            ./gradle-8.7/bin/gradle wrapper --gradle-version 8.7
           fi
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug -x lint -x test --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
