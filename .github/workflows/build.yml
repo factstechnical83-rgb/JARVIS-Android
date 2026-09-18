@@ -35,14 +35,15 @@ jobs:
           keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
           cp debug.keystore app/debug.keystore 2>/dev/null || true
 
-      - name: Build Debug APK
+      - name: Setup Gradle 9.3.1 & Build APK
         run: |
-          # Agar original gradlew extract hua hai toh use chalayein, varna gradle 8.7 use karein
-          if [ ! -f gradlew ]; then
+          if [ -f gradlew ]; then
+            sed -i 's/gradle-[0-9.]*-bin.zip/gradle-9.3.1-bin.zip/g' gradle/wrapper/gradle-wrapper.properties 2>/dev/null || true
+          else
             sudo apt-get update && sudo apt-get install -y wget unzip
-            wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip
-            unzip -q gradle-8.7-bin.zip
-            ./gradle-8.7/bin/gradle wrapper --gradle-version 8.7
+            wget -q https://services.gradle.org/distributions/gradle-9.3.1-bin.zip
+            unzip -q gradle-9.3.1-bin.zip
+            ./gradle-9.3.1/bin/gradle wrapper --gradle-version 9.3.1
           fi
           chmod +x gradlew
           ./gradlew assembleDebug -x lint -x test --no-daemon --stacktrace
