@@ -58,4 +58,407 @@ jobs:
         with:
           name: JARVIS-app-debug
           path: app/build/outputs/apk/debug/*.apk
+          <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J.A.R.V.I.S. MARK-VII</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #020b12;
+      --panel-bg: rgba(4, 24, 38, 0.6);
+      --cyan-glow: #00e5ff;
+      --cyan-dim: #007791;
+      --border-cyan: rgba(0, 229, 255, 0.35);
+      --font-display: 'Orbitron', sans-serif;
+      --font-mono: 'Share Tech Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      background-image: 
+        radial-gradient(circle at 50% 30%, rgba(0, 229, 255, 0.08) 0%, transparent 70%),
+        linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 25px 25px, 25px 25px;
+      color: var(--cyan-glow);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .hud-container {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Sci-Fi Border Card */
+    .hud-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--border-cyan);
+      border-radius: 8px;
+      padding: 12px;
+      position: relative;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.05), inset 0 0 10px rgba(0, 229, 255, 0.05);
+      backdrop-filter: blur(4px);
+    }
+
+    /* Top Header */
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .title-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title-text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-shadow: 0 0 8px var(--cyan-glow);
+    }
+
+    .badge {
+      border: 1px solid var(--cyan-glow);
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font-display);
+      letter-spacing: 1px;
+    }
+
+    .clock {
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      border: 1px solid var(--border-cyan);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Wake Word & Mode Controls */
+    .protocol-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--cyan-glow);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+    }
+
+    .btn-sci-fi {
+      width: 100%;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid var(--cyan-glow);
+      color: var(--cyan-glow);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.15);
+    }
+
+    .btn-sci-fi:active {
+      background: rgba(0, 229, 255, 0.3);
+      transform: scale(0.98);
+    }
+
+    /* Core Arc Reactor */
+    .reactor-wrapper {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin: 15px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .ring-outer-dashed {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 1px dashed var(--cyan-glow);
+      opacity: 0.6;
+      animation: rotateClockwise 18s linear infinite;
+    }
+
+    .ring-inner-solid {
+      position: absolute;
+      width: 75%;
+      height: 75%;
+      border-radius: 50%;
+      border: 2px solid var(--cyan-glow);
+      box-shadow: 0 0 15px var(--cyan-glow), inset 0 0 15px var(--cyan-glow);
+    }
+
+    .ring-tracker {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      animation: rotateAntiClockwise 10s linear infinite;
+    }
+
+    .tracker-dot {
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      width: 16px;
+      height: 16px;
+      background: var(--cyan-glow);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      box-shadow: 0 0 12px var(--cyan-glow);
+    }
+
+    .reactor-core {
+      width: 48px;
+      height: 48px;
+      background: radial-gradient(circle, #ffffff 10%, var(--cyan-glow) 60%, transparent 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 25px var(--cyan-glow);
+      animation: corePulse 2s ease-in-out infinite;
+    }
+
+    .reactor-label {
+      position: absolute;
+      bottom: 25%;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      opacity: 0.8;
+      font-family: var(--font-display);
+    }
+
+    /* Telemetry Grid */
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .status-cell {
+      border: 1px solid var(--border-cyan);
+      padding: 6px;
+      text-align: center;
+      border-radius: 4px;
+      background: rgba(0, 20, 30, 0.4);
+    }
+
+    .cell-label {
+      font-size: 0.55rem;
+      letter-spacing: 1px;
+      color: var(--cyan-dim);
+      margin-bottom: 2px;
+    }
+
+    .cell-val {
+      font-size: 0.75rem;
+      font-family: var(--font-display);
+      font-weight: bold;
+    }
+
+    .alert-text {
+      color: #ffb703;
+      text-shadow: 0 0 8px #ffb703;
+    }
+
+    /* Logs Area */
+    .telemetry-header {
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      border-bottom: 1px solid var(--border-cyan);
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .logs-terminal {
+      font-size: 0.7rem;
+      color: #7ce8ff;
+      line-height: 1.4;
+      max-height: 70px;
+      overflow-y: auto;
+    }
+
+    /* Animations */
+    @keyframes rotateClockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes rotateAntiClockwise {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    @keyframes corePulse {
+      0%, 100% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hud-container">
+    
+    <!-- Top Bar -->
+    <div class="hud-card hud-header">
+      <div class="title-box">
+        <span class="title-text">J.A.R.V.I.S.</span>
+        <span class="badge">MARK-VII</span>
+      </div>
+      <div id="liveClock" class="clock">17:52:08</div>
+    </div>
+
+    <!-- Active State Pill -->
+    <div style="text-align: center;">
+      <div class="protocol-pill">
+        <span>((•))</span>
+        <span>CONTINUOUS: ACTIVE</span>
+      </div>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="hud-card" style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
+        <span style="color: var(--cyan-dim);">WAKE WORD PROTOCOL:</span>
+        <span style="letter-spacing: 1px;">"HEY JARVIS"</span>
+      </div>
+      <button class="btn-sci-fi" id="wakeBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+          <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+        </svg>
+        ENABLE WAKE WORD LISTENER
+      </button>
+    </div>
+
+    <!-- Main Arc Reactor Display -->
+    <div class="hud-card" style="text-align: center;">
+      <div class="reactor-wrapper" id="reactor">
+        <div class="ring-outer-dashed"></div>
+        <div class="ring-inner-solid"></div>
+        <div class="ring-tracker">
+          <div class="tracker-dot"></div>
+        </div>
+        <div class="reactor-core"></div>
+        <span class="reactor-label" id="reactorState">STANDBY</span>
+      </div>
+
+      <div style="font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 1.5px; margin-bottom: 4px;">
+        • SYSTEM ONLINE · TAP TO SPEAK •
+      </div>
+      <div style="font-size: 0.65rem; color: var(--cyan-dim);">
+        Addressing you as Boss · Say "Hey Jarvis" or tap reactor
+      </div>
+
+      <!-- Telemetry Cells -->
+      <div class="status-grid">
+        <div class="status-cell">
+          <div class="cell-label">PROTOCOL</div>
+          <div class="cell-val">MARK-VII</div>
+        </div>
+        <div class="status-cell">
+          <div class="cell-label">OPERATOR</div>
+          <div class="cell-val">BOSS</div>
+        </div>
+        <div class="status-cell">
+          <div class="cell-label">VOICE SYNTH</div>
+          <div class="cell-val alert-text" id="synthStatus">INITIALIZING...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dialog & Command Logs -->
+    <div class="hud-card">
+      <div class="telemetry-header">
+        <span>>_ COMMAND TELEMETRY // DIALOG LOGS</span>
+        <span style="color: var(--cyan-dim);">BRIDGE ONLINE</span>
+      </div>
+      <div class="logs-terminal" id="terminalLog">
+        [SYS] System core initialized.<br>
+        [NET] Neural bridge connected to Gemini Flash.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Live Digital Clock
+    function updateClock() {
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0];
+      document.getElementById('liveClock').textContent = timeStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Voice Synth Readiness Check
+    window.speechSynthesis.onvoiceschanged = () => {
+      const synthStatus = document.getElementById('synthStatus');
+      synthStatus.textContent = 'ONLINE';
+      synthStatus.classList.remove('alert-text');
+      synthStatus.style.color = '#00e5ff';
+    };
+
+    // Reactor Click Animation & Feedback
+    const reactor = document.getElementById('reactor');
+    const stateText = document.getElementById('reactorState');
+    const logs = document.getElementById('terminalLog');
+
+    reactor.addEventListener('click', () => {
+      stateText.textContent = 'LISTENING...';
+      stateText.style.color = '#ffffff';
+      logs.innerHTML += `<br>[MIC] Listening for command...`;
+      logs.scrollTop = logs.scrollHeight;
+
+      setTimeout(() => {
+        stateText.textContent = 'PROCESSING...';
+      }, 3000);
+      
+      setTimeout(() => {
+        stateText.textContent = 'STANDBY';
+        stateText.style.color = 'var(--cyan-glow)';
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
+
           
