@@ -17,6 +17,8 @@ jobs:
         run: |
           unzip -o JARVIS-Android-GitHub-Ready.zip -d extracted_project
           find extracted_project -maxdepth 2 -name "build.gradle*" -exec dirname {} \; | head -n 1 | xargs -I {} cp -r {}/* . || cp -r extracted_project/* .
+          
+          # Missing environment files
           touch .env
           touch .env.example
           echo "OPENAI_API_KEY=dummy" >> .env
@@ -27,6 +29,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+
+      - name: Generate Missing Debug Keystore
+        run: |
+          keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          # Root aur app dono jagah copy kar dete hain taaki path ka issue na aaye
+          cp debug.keystore app/debug.keystore 2>/dev/null || true
 
       - name: Setup Gradle Wrapper & Build APK
         run: |
